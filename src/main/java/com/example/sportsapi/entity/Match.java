@@ -21,7 +21,6 @@ public class Match {
 
     private String teamB;
 
-    @Enumerated(EnumType.STRING)
     private Sport sport;
 
     public Long getId() {
