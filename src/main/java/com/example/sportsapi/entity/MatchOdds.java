@@ -8,9 +8,7 @@ public class MatchOdds {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "match_id", nullable = false)
-    private Match match;
+    private String matchId;
 
     private String specifier;
 
@@ -22,12 +20,12 @@ public class MatchOdds {
         this.id = id;
     }
 
-    public Match getMatch() {
-        return match;
+    public String getMatchId() {
+        return matchId;
     }
 
-    public void setMatch(Match match) {
-        this.match = match;
+    public void setMatchId(String matchId) {
+        this.matchId = matchId;
     }
 
     public String getSpecifier() {

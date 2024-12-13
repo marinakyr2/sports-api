@@ -9,8 +9,10 @@ import java.time.LocalTime;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
+    //TODO: add table's variable name
+    @Column(name = "description")
     private String description;
 
     private LocalDate matchDate;
@@ -23,11 +25,11 @@ public class Match {
 
     private Sport sport;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

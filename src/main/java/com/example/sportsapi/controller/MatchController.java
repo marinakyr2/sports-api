@@ -17,7 +17,7 @@ public class MatchController {
         this.matchRepository = matchRepository;
     }
 
-    @GetMapping
+    @GetMapping("/total")
     public List<Match> getAllMatches() {
         return matchRepository.findAll();
     }
@@ -28,14 +28,14 @@ public class MatchController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Match> getMatchById(@PathVariable Long id) {
+    public ResponseEntity<Match> getMatchById(@PathVariable String id) {
         return matchRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Match> updateMatch(@PathVariable Long id, @RequestBody Match match) {
+    public ResponseEntity<Match> updateMatch(@PathVariable String id, @RequestBody Match match) {
         return matchRepository.findById(id)
                 .map(existingMatch -> {
                     existingMatch.setDescription(match.getDescription());
@@ -50,7 +50,7 @@ public class MatchController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMatch(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteMatch(@PathVariable String id) {
         return matchRepository.findById(id)
                 .map(match -> {
                     matchRepository.delete(match);
