@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: sports-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:8080/your_database
+    username: your_username
+    password: your_password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
