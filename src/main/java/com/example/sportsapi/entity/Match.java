@@ -25,6 +25,15 @@ public class Match {
 
     private Sport sport;
 
+    public Match(String description, LocalDate matchDate, LocalTime matchTime, String teamA, String teamB, Sport sport) {
+        this.description = description;
+        this.matchDate = matchDate;
+        this.matchTime = matchTime;
+        this.teamA = teamA;
+        this.teamB = teamB;
+        this.sport = sport;
+    }
+
     public String getId() {
         return id;
     }

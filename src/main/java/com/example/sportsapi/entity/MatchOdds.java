@@ -12,6 +12,12 @@ public class MatchOdds {
 
     private String specifier;
 
+    public MatchOdds(String matchId, String specifier, Double odd) {
+        this.matchId = matchId;
+        this.specifier = specifier;
+        this.odd = odd;
+    }
+
     public String getId() {
         return id;
     }
