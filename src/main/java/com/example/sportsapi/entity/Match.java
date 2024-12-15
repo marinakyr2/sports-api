@@ -8,7 +8,7 @@ import java.time.LocalTime;
 @Entity
 public class Match {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     //TODO: add table's variable name
