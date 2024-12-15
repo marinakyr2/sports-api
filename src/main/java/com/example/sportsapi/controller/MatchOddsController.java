@@ -28,14 +28,14 @@ public class MatchOddsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MatchOdds> getMatchOddsById(@PathVariable Long id) {
+    public ResponseEntity<MatchOdds> getMatchOddsById(@PathVariable String id) {
         return matchOddsRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MatchOdds> updateMatchOdds(@PathVariable Long id, @RequestBody MatchOdds matchOdds) {
+    public ResponseEntity<MatchOdds> updateMatchOdds(@PathVariable String id, @RequestBody MatchOdds matchOdds) {
         return matchOddsRepository.findById(id)
                 .map(existingMatchOdds -> {
                     existingMatchOdds.setSpecifier(matchOdds.getSpecifier());
@@ -46,7 +46,7 @@ public class MatchOddsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMatchOdds(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteMatchOdds(@PathVariable String id) {
         return matchOddsRepository.findById(id)
                 .map(matchOdds -> {
                     matchOddsRepository.delete(matchOdds);
