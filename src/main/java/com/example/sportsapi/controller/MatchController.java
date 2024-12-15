@@ -17,12 +17,13 @@ public class MatchController {
         this.matchRepository = matchRepository;
     }
 
+    //todo: se kathe return tha fernw ena service pou tha legetai MatchService k tha ulopoiei ta parakatw
     @GetMapping("/total")
     public List<Match> getAllMatches() {
         return matchRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Match createMatch(@RequestBody Match match) {
         return matchRepository.save(match);
     }
