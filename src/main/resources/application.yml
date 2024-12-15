@@ -3,10 +3,14 @@ spring:
     name: sports-api
 
   datasource:
-    url: jdbc:postgresql://localhost:8080/your_database
-    username: your_username
-    password: your_password
+    url: jdbc:postgresql://localhost:5432/sports_api_db
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
+
+server:
+  port: 8080
