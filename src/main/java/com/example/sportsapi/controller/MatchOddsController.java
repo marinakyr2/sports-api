@@ -1,7 +1,8 @@
 package com.example.sportsapi.controller;
 
 import com.example.sportsapi.entity.MatchOdds;
-import com.example.sportsapi.repository.MatchOddsRepository;
+import com.example.sportsapi.service.MatchOddsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,47 +12,35 @@ import java.util.List;
 @RequestMapping("/api/match-odds")
 public class MatchOddsController {
 
-    private final MatchOddsRepository matchOddsRepository;
+    private final MatchOddsService matchOddsService;
 
-    public MatchOddsController(MatchOddsRepository matchOddsRepository) {
-        this.matchOddsRepository = matchOddsRepository;
+    public MatchOddsController(MatchOddsService matchOddsService) {
+        this.matchOddsService = matchOddsService;
     }
 
     @GetMapping
     public List<MatchOdds> getAllMatchOdds() {
-        return matchOddsRepository.findAll();
+        return matchOddsService.getAllMatchOdds();
     }
 
     @PostMapping
     public MatchOdds createMatchOdds(@RequestBody MatchOdds matchOdds) {
-        return matchOddsRepository.save(matchOdds);
+        return matchOddsService.createMatchOdds(matchOdds);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MatchOdds> getMatchOddsById(@PathVariable String id) {
-        return matchOddsRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(matchOddsService.getMatchOddsById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MatchOdds> updateMatchOdds(@PathVariable String id, @RequestBody MatchOdds matchOdds) {
-        return matchOddsRepository.findById(id)
-                .map(existingMatchOdds -> {
-                    existingMatchOdds.setSpecifier(matchOdds.getSpecifier());
-                    existingMatchOdds.setOdd(matchOdds.getOdd());
-                    return ResponseEntity.ok(matchOddsRepository.save(existingMatchOdds));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(matchOddsService.updateMatchOdds(id, matchOdds));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMatchOdds(@PathVariable String id) {
-        return matchOddsRepository.findById(id)
-                .map(matchOdds -> {
-                    matchOddsRepository.delete(matchOdds);
-                    return ResponseEntity.noContent().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<HttpStatus> deleteMatchOdds(@PathVariable String id) {
+        matchOddsService.deleteMatchOdds(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

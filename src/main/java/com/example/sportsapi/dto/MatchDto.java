@@ -1,37 +1,25 @@
-package com.example.sportsapi.entity;
+package com.example.sportsapi.dto;
 
 import com.example.sportsapi.entity.enums.Sport;
-import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-    //ADDEDBYM
-@Table(name="matches")
-public class Match {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class MatchDto {
     private String id;
-
-    //TODO: add table's variable name
-    @Column(name = "description")
     private String description;
-
     private LocalDate matchDate;
-
     private LocalTime matchTime;
-
     private String teamA;
-
     private String teamB;
-
     private Sport sport;
 
-    //todo: create a dto for match object and remove public match after that
-    public Match() {
+    // Constructors, Getters, and Setters
+    public MatchDto() {
     }
 
-    public Match(String description, LocalDate matchDate, LocalTime matchTime, String teamA, String teamB, Sport sport) {
+    public MatchDto(String id, String description, LocalDate matchDate, LocalTime matchTime, String teamA, String teamB, Sport sport) {
+        this.id = id;
         this.description = description;
         this.matchDate = matchDate;
         this.matchTime = matchTime;
@@ -39,7 +27,6 @@ public class Match {
         this.teamB = teamB;
         this.sport = sport;
     }
-
     public String getId() {
         return id;
     }
@@ -75,7 +62,6 @@ public class Match {
     public String getTeamA() {
         return teamA;
     }
-
     public void setTeamA(String teamA) {
         this.teamA = teamA;
     }
@@ -95,5 +81,4 @@ public class Match {
     public void setSport(Sport sport) {
         this.sport = sport;
     }
-
 }

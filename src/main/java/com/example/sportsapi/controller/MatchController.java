@@ -1,7 +1,8 @@
 package com.example.sportsapi.controller;
 
 import com.example.sportsapi.entity.Match;
-import com.example.sportsapi.repository.MatchRepository;
+import com.example.sportsapi.service.MatchService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,52 +12,36 @@ import java.util.List;
 @RequestMapping("/api/matches")
 public class MatchController {
 
-    private final MatchRepository matchRepository;
+    private final MatchService matchService;
 
-    public MatchController(MatchRepository matchRepository) {
-        this.matchRepository = matchRepository;
+    public MatchController(MatchService matchService) {
+        this.matchService = matchService;
     }
 
-    //todo: se kathe return tha fernw ena service pou tha legetai MatchService k tha ulopoiei ta parakatw
-    @GetMapping("/total")
+    @GetMapping()
     public List<Match> getAllMatches() {
-        return matchRepository.findAll();
+        return matchService.getAllMatches();
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public Match createMatch(@RequestBody Match match) {
-        return matchRepository.save(match);
+        return matchService.createMatch(match);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Match> getMatchById(@PathVariable String id) {
-        return matchRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(matchService.getMatchById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Match> updateMatch(@PathVariable String id, @RequestBody Match match) {
-        return matchRepository.findById(id)
-                .map(existingMatch -> {
-                    existingMatch.setDescription(match.getDescription());
-                    existingMatch.setMatchDate(match.getMatchDate());
-                    existingMatch.setMatchTime(match.getMatchTime());
-                    existingMatch.setTeamA(match.getTeamA());
-                    existingMatch.setTeamB(match.getTeamB());
-                    existingMatch.setSport(match.getSport());
-                    return ResponseEntity.ok(matchRepository.save(existingMatch));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(matchService.updateMatch(id, match));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMatch(@PathVariable String id) {
-        return matchRepository.findById(id)
-                .map(match -> {
-                    matchRepository.delete(match);
-                    return ResponseEntity.noContent().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<HttpStatus> deleteMatch(@PathVariable String id) {
+        matchService.deleteMatch(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
