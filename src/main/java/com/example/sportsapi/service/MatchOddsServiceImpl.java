@@ -1,5 +1,8 @@
 package com.example.sportsapi.service;
 
+import com.example.sportsapi.dto.MatchDto;
+import com.example.sportsapi.dto.MatchOddsDto;
+import com.example.sportsapi.entity.Match;
 import com.example.sportsapi.entity.MatchOdds;
 import com.example.sportsapi.repository.MatchOddsRepository;
 import org.springframework.core.convert.ConversionService;
@@ -21,32 +24,36 @@ public class MatchOddsServiceImpl implements MatchOddsService {
     }
 
     @Override
-    public List<MatchOdds> getAllMatchOdds() {
-        return matchOddsRepository.findAll();
+    public List<MatchOddsDto> getAllMatchOdds() {
+
+        return matchOddsRepository.findAll()
+                .stream()
+                .map(match -> conversionService.convert(match, MatchOddsDto.class))
+                .toList();
     }
 
     @Override
-    public MatchOdds createMatchOdds(@RequestBody MatchOdds matchOdds) {
-        return matchOddsRepository.save(matchOdds);
+    public void createMatchOdds(MatchOdds matchOdds) {
+        matchOddsRepository.save(matchOdds);
     }
 
 
     @Override
-    public MatchOdds getMatchOddsById(String id) {
-        return matchOddsRepository.findById(id)
+    public MatchOddsDto getMatchOddsById(String id) {
+        MatchOdds matchOdds=  matchOddsRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Match Odd not found with id " + id));
+    return conversionService.convert(matchOdds, MatchOddsDto.class);
     }
 
     @Override
-    public MatchOdds updateMatchOdds(String id, MatchOdds matchOdds) {
-        return matchOddsRepository.findById(id)
-                .map(existingMatchOdds -> {
-                    existingMatchOdds.setSpecifier(matchOdds.getSpecifier());
-                    existingMatchOdds.setOdd(matchOdds.getOdd());
-                    return matchOddsRepository.save(existingMatchOdds);
-                })
-                .orElseThrow(() -> new NoSuchElementException("Match Odd not found with id " + id));
-    }
+    public MatchOddsDto updateMatchOdds(String id, MatchOdds matchOdds) {
+        MatchOdds existingMatchOdds = matchOddsRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Match not found with id " + id));
+        existingMatchOdds.setId(matchOdds.getId());
+        existingMatchOdds.setMatchId(matchOdds.getMatchId());
+        existingMatchOdds.setOdd(matchOdds.getOdd());
+        existingMatchOdds.setSpecifier(matchOdds.getSpecifier());
+        return conversionService.convert(existingMatchOdds, MatchOddsDto.class); }
 
     @Override
     public void deleteMatchOdds(String id) {
