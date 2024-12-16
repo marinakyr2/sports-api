@@ -18,8 +18,6 @@ public class MatchOdds {
         this.odd = odd;
     }
 
-    public MatchOdds() {
-    }
 
     public String getId() {
         return id;

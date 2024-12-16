@@ -28,9 +28,6 @@ public class Match {
 
     private Sport sport;
 
-    //todo: create a dto for match object and remove public match after that
-    public Match() {
-    }
 
     public Match(String description, LocalDate matchDate, LocalTime matchTime, String teamA, String teamB, Sport sport) {
         this.description = description;
