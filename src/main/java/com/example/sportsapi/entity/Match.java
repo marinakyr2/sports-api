@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+    //ADDEDBYM
+@Table(name="matches")
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -95,3 +97,12 @@ public class Match {
     }
 
 }
+
+//addedbym
+// New DTO class for Match
+package com.example.sportsapi.dto;
+
+import com.example.sportsapi.entity.enums.Sport;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
