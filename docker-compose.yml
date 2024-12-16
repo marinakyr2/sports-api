@@ -1,17 +1,6 @@
 version: '3.9'
 
 services:
-  sports-api-app-container:
-    container_name: sports-api-app-container
-    build:
-      dockerfile: Dockerfile
-    image: sports-api-app-image:latest
-    ports:
-      - "8080:8080"
-    networks:
-      - spring-cloud-network
-    depends_on:
-      - sports-api-db-container
 
   sports-api-db-container:
     image: postgres:14-alpine
@@ -24,12 +13,6 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - data:/var/lib/postgresql/data
-    networks:
-      - spring-cloud-network
 
 volumes:
   data:
-
-networks:
-  spring-cloud-network:
-    driver: bridge
