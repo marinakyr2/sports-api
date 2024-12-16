@@ -5,19 +5,18 @@ import com.example.sportsapi.entity.enums.Sport;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class MatchDto {
+public class MatchOddsDto {
     private String id;
-    private String description;
-    private LocalDate matchDate;
-    private LocalTime matchTime;
-    private String teamA;
-    private String teamB;
-    private Sport sport;
 
-    public MatchDto() {
+    private String matchId;
+
+    private String specifier;
+
+    // Constructors, Getters, and Setters
+    public MatchOddsDto() {
     }
 
-    public MatchDto(String id, String description, LocalDate matchDate, LocalTime matchTime, String teamA, String teamB, Sport sport) {
+    public MatchOddsDto(String id, String description, LocalDate matchDate, LocalTime matchTime, String teamA, String teamB, Sport sport) {
         this.id = id;
         this.description = description;
         this.matchDate = matchDate;

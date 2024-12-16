@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-    //ADDEDBYM
+
 @Table(name="matches")
 public class Match {
     @Id
@@ -17,6 +17,7 @@ public class Match {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "match_date")
     private LocalDate matchDate;
 
     private LocalTime matchTime;

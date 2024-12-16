@@ -1,18 +1,19 @@
 package com.example.sportsapi.service;
 
+import com.example.sportsapi.dto.MatchDto;
 import com.example.sportsapi.entity.Match;
 
 import java.util.List;
 
 public interface MatchService {
 
-    List<Match> getAllMatches();
+    List<MatchDto> getAllMatches();
 
-    Match getMatchById(String id);
+    MatchDto getMatchById(String id);
 
-    Match createMatch(Match match);
+    void createMatch(Match match);
 
-    Match updateMatch(String id, Match match);
+    MatchDto updateMatch(String id, Match match);
 
     void deleteMatch(String id);
 

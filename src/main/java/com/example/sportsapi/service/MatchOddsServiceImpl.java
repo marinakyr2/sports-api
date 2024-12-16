@@ -2,6 +2,7 @@ package com.example.sportsapi.service;
 
 import com.example.sportsapi.entity.MatchOdds;
 import com.example.sportsapi.repository.MatchOddsRepository;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -12,9 +13,11 @@ import java.util.NoSuchElementException;
 public class MatchOddsServiceImpl implements MatchOddsService {
 
     private final MatchOddsRepository matchOddsRepository;
+    private final ConversionService conversionService;
 
-    public MatchOddsServiceImpl(MatchOddsRepository matchOddsRepository) {
+    public MatchOddsServiceImpl(MatchOddsRepository matchOddsRepository, ConversionService conversionService) {
         this.matchOddsRepository = matchOddsRepository;
+        this.conversionService = conversionService;
     }
 
     @Override

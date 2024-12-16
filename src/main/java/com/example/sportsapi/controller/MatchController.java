@@ -1,5 +1,6 @@
 package com.example.sportsapi.controller;
 
+import com.example.sportsapi.dto.MatchDto;
 import com.example.sportsapi.entity.Match;
 import com.example.sportsapi.service.MatchService;
 import org.springframework.http.HttpStatus;
@@ -19,22 +20,23 @@ public class MatchController {
     }
 
     @GetMapping()
-    public List<Match> getAllMatches() {
+    public List<MatchDto> getAllMatches() {
         return matchService.getAllMatches();
     }
 
     @PostMapping()
-    public Match createMatch(@RequestBody Match match) {
-        return matchService.createMatch(match);
+    public ResponseEntity<HttpStatus> createMatch(@RequestBody Match match) {
+        matchService.createMatch(match);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Match> getMatchById(@PathVariable String id) {
+    public ResponseEntity<MatchDto> getMatchById(@PathVariable String id) {
         return ResponseEntity.ok(matchService.getMatchById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Match> updateMatch(@PathVariable String id, @RequestBody Match match) {
+    public ResponseEntity<MatchDto> updateMatch(@PathVariable String id, @RequestBody Match match) {
         return ResponseEntity.ok(matchService.updateMatch(id, match));
     }
 
